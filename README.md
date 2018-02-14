@@ -4,11 +4,40 @@ Jiaan is an intelligent security camera built for the DeepLens challenge. The se
 
 ## Installation
 
+### Inference Processing and Interpretation Services
 ```python
 pip install boto3 cv2 mxnet
 ```
 
++ Deploy /inference_processor to Lambda
+    - Updated model name with any SSD r-CNN trained model deployed to DeepLens
+    - Update the docs/synset.txt with all labels available for inference
++ Deploy /interpretation_service to Lambda
+    - Create SNS Topic for test notifications and subscribe
+    - Deploy your own auditing service (preferrably using ElasticSearch)
+    - Add SNS and Lambda ARNs for notification and auditing services
++ Create new model for DeepLens using externally trained model
++ Create new project with model and add the inference_processor Lambda function
++ Deploy project to DeepLens
+
+### Model Training
+
++ Import Jupyter Notebook project into Sagemaker
++ Update account-specific paths with your own S3 buckets
+
+## Testing
+
+```python
+cd inference_processor
+python -m unittest tests/
+```
+
 ** DeepLens hardware is required | awscam and greengrass packages are required
+
+## External Dependencies
+
+- Greengrass SDK
+- awscam
 
 ## History
 
