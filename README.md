@@ -1,6 +1,10 @@
 # Jiaan - Intelligent Security Camera
 
-Jiaan is an intelligent security camera built for the DeepLens challenge. The services target DeepLens- and IoT-specific transactions that process, interpret, and act on classified objects detected by the SSD r-CNN framework. The model has been trained from the VGG16 Reduced model using a custom data set that is not included in this repository as they are too large (~2.9GB).
+Jiaan is an intelligent security camera built for the DeepLens challenge. The services target DeepLens- and IoT-specific transactions that process, interpret, and act on classified objects detected by the [SSD](https://arxiv.org/abs/1512.02325) r-CNN framework. The model has been trained from the VGG16 Reduced model using a custom data set that is not included in this repository as they are too large (~2.9GB).
+
+## Model
+- Trained and optimized model is located under models/
+- Original VGG16 Reduced model Jiaan was fine tuned on is located in /jiaan-train/vgg16_reduced
 
 ## Installation
 
@@ -10,7 +14,7 @@ pip install boto3 cv2 mxnet
 ```
 
 + Deploy /inference_processor to Lambda
-    - Updated model name with any SSD r-CNN trained model deployed to DeepLens
+    - Updated [model_name] with any SSD r-CNN trained model deployed to DeepLens
     - Update the docs/synset.txt with all labels available for inference
 + Deploy /interpretation_service to Lambda
     - Create SNS Topic for test notifications and subscribe

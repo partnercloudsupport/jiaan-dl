@@ -3,7 +3,7 @@
 Author: Matthew Pettit
 Project: DeepLens Challenge - Jiaan
 """
-import logging, json
+import logging, json, os
 
 from aws import LambdaClient, SqsClient
 from deserializer import InferenceEvent
@@ -59,13 +59,16 @@ def handler(event, context):
 
     threat_level = calculate_threat(inference.vectors)
 
+    logger.info("Threat Level: {}".format(threat_level))
+
     if threat_level > 0:
         try:
             audit_client = LambdaClient()
             notification_client = SqsClient()
 
             # Audit the inferred threat
-            if os.getenv('EVENT_ROUTER', None) is not None:
+            event_router = os.getenv('EVENT_ROUTER', None)
+            if event_router is not None and len(event_router):
                 response = audit_client.audit_threat(
                     {
                         'source': 'localhost',
